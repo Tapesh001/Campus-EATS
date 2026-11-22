@@ -33,7 +33,7 @@ async function startCheckout() {
     const cartKey = 'bmu.' + student.id + '.cart';
     const items = JSON.parse(localStorage.getItem(cartKey) || '[]');
     let quote = await request('checkout/quote', { items });
-    let appliedCoupon = ''; 
+    let appliedCoupon = '';
     for (const item of quote.items) {
       const row = document.createElement('article');
       const heading = document.createElement('strong');

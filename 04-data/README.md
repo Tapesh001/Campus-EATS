@@ -4,7 +4,7 @@
 
 ## Runtime data
 
-Submissions are stored outside the repository, by default in `.bmu-campus-eats` in the operating-system user's home directory. Set `BMU_DATA_DIR` to change that location.
+Submissions are stored by default in this project's ignored `.local-data/` directory. Set `BMU_DATA_DIR` to use another private location. When MongoDB is configured, application state is stored in that database instead; configure a separate database for this new project.
 
 | Private file | Contents |
 | :--- | :--- |

@@ -20,4 +20,3 @@ Hosting must support Gmail SMTP and durable storage for the current JSON files. 
 On Render Free, configure BMU_BREVO_API_KEY and BMU_MAIL_USER in private environment settings. Complete Brevo sender verification and transactional activation first. The HTTPS sender takes precedence over local Gmail SMTP. Never commit API keys. A provider acceptance response does not guarantee inbox delivery; verify a real reset email before declaring setup complete.
 
 Configure BMU_ADMIN_PASSWORD privately to enable the admin login. Accounts and orders remain in MongoDB.
-
