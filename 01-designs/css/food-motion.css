@@ -1,0 +1,99 @@
+/* Five coloured shutters reveal the food scene. With no script the page opens directly. */
+.food-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  pointer-events: none;
+  overflow: hidden;
+}
+.food-curtain[hidden] { display: none; }
+.curtain-panel { flex: 1; background: var(--panel); }
+.food-curtain strong {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff7dd;
+  font: 900 clamp(4rem, 14vw, 16rem)/1 var(--font-display);
+  letter-spacing: -.065em;
+}
+.motion-word, .motion-word i { display: inline-block; font-style: normal; }
+.motion-word { white-space: nowrap; }
+
+body[data-page="home"] water-surface { min-height: 0; display: block; }
+.hero-wrap {
+  background: #ad1137;
+  isolation: isolate;
+  padding: 1rem clamp(1rem,5vw,5rem) 2rem;
+  min-height: min(820px, 94svh);
+  display: grid;
+  align-content: center;
+}
+.hero-wrap .hero-copy { width: 100%; max-width: none; display: block; overflow: visible; }
+.hero-stage { position: relative; height: clamp(290px,47vw,540px); display: grid; place-items: center; }
+.hero-stage h1 {
+  margin: 0;
+  font: 900 clamp(7rem,24vw,23rem)/1 var(--font-display);
+  color: #fff6dd;
+  letter-spacing: -.07em;
+}
+.burger-stage {
+  position: absolute;
+  width: min(80%,530px);
+  height: 112%;
+  top: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.burger-stage canvas { width: 100%; height: 100%; display: block; }
+.hero-wrap .food-sticker { top: 16%; right: 5%; z-index: -1; }
+.hero-wrap .section-kicker { color: #ffbe21; text-align: center; margin: 1rem; }
+.hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; }
+.hero-bottom p { font-size: clamp(1rem,2vw,1.6rem); line-height: 1.2; max-width: 19em; }
+.hero-bottom .hero-actions { margin: 0; }
+.hero-wrap .campus-search { display: flex; gap: .5rem; margin-top: 1rem; }
+.hero-wrap .campus-search :is(input,button) { border-radius: 2rem; padding: .65rem 1rem; font: inherit; }
+.hero-wrap .campus-search input { color: var(--ink); background: white; max-width: 60vw; }
+.hero-wrap .campus-search button { color: var(--ink); background: var(--sun); cursor: pointer; }
+.ticker .ticker-track { justify-content: flex-start; width: max-content; gap: 0; }
+.ticker-group { display: flex; align-items: center; gap: 2rem; padding-right: 2rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track { animation: food-marquee 24s linear infinite; }
+}
+@keyframes food-marquee { to { transform: translateX(-50%); } }
+.home-shop-card:hover { transform: none; }
+@media (max-width: 600px) {
+  .hero-wrap { min-height: auto; }
+  .hero-wrap .food-sticker { top: 4%; right: 0; width: 4.8rem; height: 4.8rem; }
+  .hero-bottom { justify-content: center; text-align: center; }
+  .campus-search { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .food-curtain { display: none; } }
+/* Hold the food in view while its layers separate with the page scroll. */
+@media (min-height: 540px) and (prefers-reduced-motion: no-preference) {
+  .food-scroll { background: #ad1137; }
+  .food-scroll::after { content: ""; display: block; height: 36svh; }
+  .food-scroll > water-surface { position: sticky !important; top: 0; }
+}
+.hero-wrap .hero-copy > .section-kicker { font-size: .85rem; letter-spacing: .16em; }
+.hero-stage h1 .motion-word { color: #fff6dd; }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .shop-section.gallery-active { position: relative; padding-bottom: 0; }
+  .gallery-active::after { content: ""; display: block; height: var(--gallery-distance); }
+  .gallery-active .gallery-window { position: sticky; top: 2rem; overflow: hidden; padding: 1rem 0; }
+  .gallery-active .home-shop-grid { display: flex; transform: translateX(var(--gallery-shift,0px)); }
+  .gallery-active .home-shop-card { flex: 0 0 clamp(17rem,32vw,24rem); }
+}
+.burger-preview {
+  position: absolute;
+  width: min(42%, 340px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}

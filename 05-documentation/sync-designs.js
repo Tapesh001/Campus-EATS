@@ -10,6 +10,10 @@ const escape = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<
 function staticPage(name, html) {
   // Show useful static states in sections normally filled by API calls.
   // Only the public seed catalog and clearly labelled placeholder values are used.
+  if (name === 'index.html') {
+    html = html.replace(/<button class="burger-stage"[^>]*>[\s\S]*?<\/button>/,
+      '<img class="burger-preview" src="assets/2764e.png" alt="Campus menu pasta">');
+  }
   if (name === 'profile.html') {
     html = html.replace('>Guest</h2>', '>Student name</h2>')
       .replace('<dl id="summary"></dl>', '<dl id="summary">' + [

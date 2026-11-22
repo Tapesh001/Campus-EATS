@@ -1,7 +1,7 @@
 // A coarse height field drives optical refraction; the actual controls keep their layout.
 class WaterSurface extends HTMLElement {
   connectedCallback() {
-    const scene = this.querySelector(".home");
+    const scene = this.querySelector(".hero-wrap");
     if (!scene) return;
     this.style.display = "block";
     this.style.position = "relative";
