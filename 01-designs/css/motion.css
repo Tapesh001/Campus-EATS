@@ -1,0 +1,76 @@
+/* Campus EATS — shared type, smooth scroll, cursor and page-transition layer.
+   Loaded on every page after the page's own styles. */
+@font-face{font-family:"Archivo";src:url("/assets/fonts/archivo-latin-wdth-normal.woff2") format("woff2-variations");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("/assets/fonts/dm-sans-latin-wght-normal.woff2") format("woff2-variations");font-weight:100 1000;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url("/assets/fonts/barlow-condensed-latin-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Barlow Condensed";src:url("/assets/fonts/barlow-condensed-latin-800-normal.woff2") format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Yellowtail";src:url("/assets/fonts/yellowtail-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --candy:#b21236;--chilli:#f04420;--tangerine:#ff861d;--sun:#ffbf18;--lagoon:#2fa0a0;
+  --cream:#f4ede1;--paper:#f4ede1;--ink:#2a1014;--wine:#7d0d27;--pink:#ffd1d8;
+  --font-display:"Archivo","Arial Black",system-ui,sans-serif;
+  --font-label:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --font-script:"Yellowtail","Brush Script MT",cursive;
+  --font-body:"DM Sans",Arial,system-ui,sans-serif;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+
+/* Lenis smooth scroll */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+
+/* Headings everywhere share the expanded display face */
+h1,h2,.display{font-family:var(--font-display);font-stretch:118%;font-weight:900;letter-spacing:-.01em}
+
+/* Scroll progress ribbon */
+.scroll-ribbon{position:fixed;inset:0 0 auto 0;height:4px;z-index:900;pointer-events:none;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--candy) 0 20%,var(--chilli) 20% 40%,var(--tangerine) 40% 60%,var(--sun) 60% 80%,var(--lagoon) 80%)}
+
+/* Page transition: five stripes, one per brand colour */
+.page-curtain{position:fixed;inset:0;z-index:1000;display:grid;grid-template-columns:repeat(5,1fr);pointer-events:none}
+.page-curtain i{display:block;transform:translateY(101%)}
+.page-curtain i:nth-child(1){background:var(--candy)}
+.page-curtain i:nth-child(2){background:var(--chilli)}
+.page-curtain i:nth-child(3){background:var(--tangerine)}
+.page-curtain i:nth-child(4){background:var(--sun)}
+.page-curtain i:nth-child(5){background:var(--lagoon)}
+.page-curtain.is-covering{pointer-events:auto}
+html.arriving .page-curtain i{transform:none}
+
+/* Custom cursor (fine pointers only) */
+.cursor-dot,.cursor-ring{position:fixed;left:0;top:0;z-index:1100;pointer-events:none;border-radius:50%;translate:-50% -50%}
+.cursor-dot{width:8px;height:8px;background:var(--candy);mix-blend-mode:normal}
+.cursor-ring{width:42px;height:42px;border:2px solid var(--candy);display:grid;place-items:center;
+  transition:width .35s var(--ease-out),height .35s var(--ease-out),background-color .3s,border-color .3s}
+.cursor-ring span{font:800 13px/1 var(--font-label);letter-spacing:.06em;text-transform:uppercase;color:var(--cream);opacity:0;transition:opacity .2s}
+.cursor-ring.is-link{width:64px;height:64px;background:rgba(178,18,54,.12)}
+.cursor-ring.has-label{width:92px;height:92px;background:var(--candy);border-color:var(--candy)}
+.cursor-ring.has-label span{opacity:1}
+.cursor-ring.on-dark{border-color:var(--sun)}
+.cursor-ring.on-dark.has-label{background:var(--sun);border-color:var(--sun)}
+.cursor-ring.on-dark.has-label span{color:var(--ink)}
+.cursor-dot.on-dark{background:var(--sun)}
+html.has-cursor,html.has-cursor a,html.has-cursor button{cursor:none}
+html.has-cursor input,html.has-cursor textarea,html.has-cursor select{cursor:auto}
+@media (hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+/* Generic scroll reveal used on inner pages */
+html.motion-ready [data-reveal]{opacity:0;transform:translateY(40px)}
+
+/* Small toast-like back-to-top */
+.to-top{position:fixed;right:22px;bottom:22px;z-index:800;width:54px;height:54px;border-radius:50%;border:2px solid var(--ink);background:var(--sun);color:var(--ink);
+  font:900 20px/1 var(--font-display);display:grid;place-items:center;box-shadow:3px 4px 0 var(--ink);opacity:0;transform:translateY(20px) scale(.8);pointer-events:none;transition:opacity .3s,transform .4s var(--ease-out)}
+.to-top.is-visible{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{transform:translateY(-3px) rotate(-8deg)}
+
+@media (prefers-reduced-motion:reduce){
+  .page-curtain,.cursor-dot,.cursor-ring,.scroll-ribbon{display:none!important}
+  html.motion-ready [data-reveal]{opacity:1;transform:none}
+}
+
+/* Painted before any script runs so arriving pages never flash */
+html.arriving::after{content:"";position:fixed;inset:0;z-index:1001;
+  background:linear-gradient(90deg,var(--candy) 0 20%,var(--chilli) 20% 40%,var(--tangerine) 40% 60%,var(--sun) 60% 80%,var(--lagoon) 80%)}

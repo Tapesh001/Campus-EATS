@@ -3,205 +3,272 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#bd103d">
-<title>Campus EATS — Good food. Good company.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Paytone+One&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles/site.css">
-<link rel="stylesheet" href="/styles/topas-theme.css">
-<script defer src="/scripts/app.js">
-</script>
-<script defer src="/scripts/water-surface.js">
-</script>
-<script defer src="/scripts/extras.js">
-</script>
-<link rel="stylesheet" href="/styles/food-motion.css">
-<script type="module" src="/scripts/food-motion.js">
-</script>
+<meta name="theme-color" content="#b21236">
+<title>Campus EATS — Your campus. Your cravings. One place.</title>
+<meta name="description" content="Every BMU campus kitchen in one place. Browse menus, order ahead and collect at the shop counter or hostel gate.">
+<script>(function(d){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('motion-ready');try{if(sessionStorage.getItem('ce-curtain'))d.classList.add('arriving')}catch(e){}setTimeout(function(){d.classList.remove('arriving')},4000)})(document.documentElement)</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/styles/motion.css">
+<link rel="stylesheet" href="/styles/home.css">
+<script defer src="/scripts/vendor/gsap.min.js"></script>
+<script defer src="/scripts/vendor/ScrollTrigger.min.js"></script>
+<script defer src="/scripts/vendor/SplitText.min.js"></script>
+<script defer src="/scripts/vendor/lenis.min.js"></script>
+<script defer src="/scripts/food-art.js"></script>
+<script defer src="/scripts/app.js"></script>
+<script defer src="/scripts/motion.js"></script>
+<script defer src="/scripts/home.js"></script>
 </head>
 <body data-page="home">
-<main>
+<a class="skip-link" href="#content">Skip to content</a>
+
+<!-- Loader: five stripes, a spinning dish and a running commentary from the kitchen -->
+<div class="loader" aria-hidden="true">
+  <div class="loader-stripes"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="loader-center">
+    <div class="loader-icon" data-food="item:burger"></div>
+    <p class="loader-line">Heating up the tawa…</p>
+    <div class="loader-bar"><span></span></div>
+  </div>
+  <strong class="loader-shout">LET’S EAT!</strong>
+  <small class="loader-corner">¡CAMPUS EATS!</small>
+</div>
+
 <header class="site-header">
-<a class="brand-mark" href="index.html">
-<span class="brand-icon">CE</span>
-<span>Campus<span class="brand-eats">EATS</span>
-</span>
-</a>
-<nav class="navigation-links" aria-label="Main navigation">
-<p>Home</p>
-<p>Shops</p>
-<p>Cart</p>
-<p>Orders</p>
-<p>Profile</p>
-<p>Login</p>
-</nav>
-<a class="header-order" href="shops.html">Find your food</a>
+  <a class="badge" href="index.html" aria-label="Campus EATS home" data-cursor="Home">
+    <svg class="badge-ring" viewBox="0 0 120 120" aria-hidden="true">
+      <defs><path id="badge-circle" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs>
+      <text><textPath href="#badge-circle">CAMPUS EATS ✱ CAMPUS EATS ✱ </textPath></text>
+    </svg>
+    <span class="badge-core">CE</span>
+  </a>
+  <div class="status-pill"><span class="pulse"></span><span id="status-text">Order ahead · skip the queue</span></div>
+  <div class="header-right">
+    <nav class="navigation-links" aria-label="Main navigation">
+      <p>Shops</p>
+      <p>Cart</p>
+      <p>Orders</p>
+      <p>Profile</p>
+      <p>Login</p>
+    </nav>
+    <a class="pill-cta" href="shops.html" data-magnetic>Order now <span>↗</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-overlay">Menu</button>
+  </div>
 </header>
-<div class="food-curtain" hidden aria-hidden="true">
-<span class="curtain-panel" style="--panel:#af1038">
-</span>
-<span class="curtain-panel" style="--panel:#ef4018">
-</span>
-<span class="curtain-panel" style="--panel:#ff8923">
-</span>
-<span class="curtain-panel" style="--panel:#feb914">
-</span>
-<span class="curtain-panel" style="--panel:#319da1">
-</span>
-<strong>EATS</strong>
+
+<div class="menu-overlay" id="menu-overlay" hidden>
+  <div class="menu-stripes"><i></i><i></i><i></i><i></i><i></i></div>
+  <nav aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="shops.html">Shops</a>
+    <a href="cart.html">Cart</a>
+    <a href="orders.html">Orders</a>
+    <a href="profile.html">Profile</a>
+    <a href="login.html">Login</a>
+  </nav>
+  <p class="menu-script">bon appétit, gang</p>
 </div>
-<div class="food-scroll">
-<water-surface>
-<section class="hero-wrap" aria-labelledby="food-title">
-<div class="hero-copy">
-<p class="section-kicker">BMU CAMPUS FOOD</p>
-<div class="hero-stage">
-<h1 id="food-title">EATS</h1>
-<button class="burger-stage" type="button" aria-label="Turn the burger">
-<canvas aria-hidden="true">
-</canvas>
-</button>
-<span class="food-sticker">CAMPUS<br>EATS</span>
-</div>
-<div class="hero-bottom">
-<p>Explore campus menus and choose your next meal.</p>
-<div class="hero-actions">
-<a class="button-primary" href="shops.html">Explore the shops</a>
-<a class="text-link" href="#shops">Browse menus</a>
-</div>
-</div>
-</div>
-</section>
-</water-surface>
-</div>
-<div class="ticker" aria-hidden="true">
-<div class="ticker-track">
-<div class="ticker-group">
-<span>BURGERS</span>
-<b>✳</b>
-<span>PIZZA</span>
-<b>✳</b>
-<span>ROLLS</span>
-<b>✳</b>
-<span>NOODLES</span>
-<b>✳</b>
-<span>WRAPS</span>
-<b>✳</b>
-</div>
-<div class="ticker-group">
-<span>BURGERS</span>
-<b>✳</b>
-<span>PIZZA</span>
-<b>✳</b>
-<span>ROLLS</span>
-<b>✳</b>
-<span>NOODLES</span>
-<b>✳</b>
-<span>WRAPS</span>
-<b>✳</b>
-</div>
-</div>
-</div>
-<div class="home-content">
-<section class="intro-band">
-<div class="intro-aside">THE CAMPUS<br>FOOD EDITION <span>№ 01</span>
-</div>
-<div>
-<p class="section-kicker">A LITTLE SOMETHING FOR EVERYONE</p>
-<h2>Pick a craving.<br>
-<em>Find your people.</em>
-</h2>
-</div>
-<p class="intro-copy">The shops you love, all together. Browse the menus, choose what sounds good, then select shop-counter collection or hostel-gate pickup at checkout.</p>
-</section>
-<section class="feature-section shop-section" id="shops">
-<div class="gallery-window">
-<div class="section-head">
-<div>
-<p class="section-kicker">SIX SPOTS. SO MANY CRAVINGS.</p>
-<h2>Meet your <em>food crew.</em>
-</h2>
-</div>
-<a class="text-link" href="shops.html">All campus shops ↗</a>
-</div>
-<div class="home-shop-grid" id="home-shop-grid">
-<article class="shop-placeholder">
-<span>✳</span>
-<h3>Loading the good stuff</h3>
-<p>Fetching campus shop menus…</p>
-</article>
-</div>
-</div>
-</section>
-<section id="how-it-works" class="steps-story">
-<div class="steps-heading">
-<p class="section-kicker">NO FUSS. JUST FOOD.</p>
-<h2>Three steps to<br>
-<em>very happy you.</em>
-</h2>
-<p>Easy to order, easy to collect, easy to make it a regular thing.</p>
-<a class="button-dark" href="shops.html">Let’s get started</a>
-</div>
-<div class="step-list">
-<article>
-<span class="step-no">01</span>
-<div>
-<h3>Find your flavour</h3>
-<p>Explore campus shops and search their menus for exactly what you’re craving.</p>
-</div>
-<span class="step-emoji">⌕</span>
-</article>
-<article>
-<span class="step-no">02</span>
-<div>
-<h3>Make it your order</h3>
-<p>Choose your portions, add favourites, and check out when you’re ready.</p>
-</div>
-<span class="step-emoji">＋</span>
-</article>
-<article>
-<span class="step-no">03</span>
-<div>
-<h3>Pick up and dig in</h3>
-<p>Choose shop counter or hostel gate, then follow your order from your Orders page.</p>
-</div>
-<span class="step-emoji">♥</span>
-</article>
-</div>
-</section>
-<section class="together-banner">
-<div class="together-art" aria-hidden="true">
-<span>✳</span>
-<b>YUM</b>
-<span>✦</span>
-</div>
-<div>
-<p class="section-kicker">BETTER WHEN IT’S SHARED</p>
-<h2>Bring an appetite.<br>
-<em>Bring your gang.</em>
-</h2>
-<p>That “what should we eat?” group chat just got a lot more delicious.</p>
-<a class="button-primary" href="shops.html">See what’s on the menu</a>
-</div>
-</section>
-<footer class="site-footer">
-<a class="brand-mark" href="index.html">
-<span class="brand-icon">CE</span>
-<span>Campus<span class="brand-eats">EATS</span>
-</span>
-</a>
-<p>Made for campus life. Best enjoyed with friends.</p>
-<div class="footer-links">
-<p>Shops</p>
-<p>Cart</p>
-<p>Orders</p>
-<p>Profile</p>
-</div>
-<small>© Campus EATS · Student food ordering project</small>
-</footer>
-<div class="dashboard-sections" hidden>
-</div>
-</div>
+
+<main id="content">
+
+  <!-- HERO -->
+  <section class="hero" id="top" data-dark>
+    <div class="hero-swirl" aria-hidden="true">yum</div>
+    <h1 class="hero-title" aria-label="Campus EATS">
+      <span class="hero-letter" aria-hidden="true">E</span><span class="hero-letter" aria-hidden="true">A</span><span class="hero-letter" aria-hidden="true">T</span><span class="hero-letter" aria-hidden="true">S</span>
+    </h1>
+    <div class="hero-floaters" aria-hidden="true">
+      <span class="floater" data-depth="1.4" style="--x:7%;--y:22%;--s:7vw;--r:-18deg" data-food="item:tomato"></span>
+      <span class="floater" data-depth="0.8" style="--x:20%;--y:12%;--s:5vw;--r:24deg" data-food="item:cheese"></span>
+      <span class="floater" data-depth="1.8" style="--x:30%;--y:56%;--s:5.5vw;--r:-30deg" data-food="item:chili"></span>
+      <span class="floater" data-depth="1.1" style="--x:14%;--y:62%;--s:6vw;--r:10deg" data-food="item:onion"></span>
+      <span class="floater" data-depth="2" style="--x:4%;--y:44%;--s:4.5vw;--r:40deg" data-food="item:olive"></span>
+      <span class="floater" data-depth="0.6" style="--x:38%;--y:10%;--s:4vw;--r:-12deg" data-food="item:leaf"></span>
+      <span class="floater" data-depth="1.5" style="--x:66%;--y:14%;--s:5vw;--r:16deg" data-food="item:pizza"></span>
+      <span class="floater" data-depth="1" style="--x:80%;--y:26%;--s:6.5vw;--r:-8deg" data-food="item:fries"></span>
+      <span class="floater" data-depth="1.9" style="--x:90%;--y:12%;--s:4vw;--r:30deg" data-food="item:olive"></span>
+      <span class="floater" data-depth="1.2" style="--x:70%;--y:54%;--s:5vw;--r:-22deg" data-food="item:pepper"></span>
+      <span class="floater" data-depth="0.7" style="--x:86%;--y:58%;--s:5.5vw;--r:12deg" data-food="item:roll"></span>
+      <span class="floater" data-depth="1.6" style="--x:58%;--y:34%;--s:3.5vw;--r:50deg" data-food="item:tomato"></span>
+    </div>
+    <button class="hero-burger" type="button" aria-label="Poke the burger" data-cursor="Poke!">
+      <span class="pick" aria-hidden="true"><i>CE</i></span>
+      <span class="layer" data-food="part:bunTop"></span>
+      <span class="layer" data-food="part:lettuce"></span>
+      <span class="layer" data-food="part:tomato"></span>
+      <span class="layer" data-food="part:cheese"></span>
+      <span class="layer" data-food="part:patty"></span>
+      <span class="layer" data-food="part:bunBottom"></span>
+    </button>
+    <div class="hero-sticker" aria-hidden="true"><span>BMU<br>CAMPUS<br>FOOD</span></div>
+    <div class="hero-bottom">
+      <p class="hero-lede">Every campus kitchen.<br>One menu app.<br>Zero queue drama.</p>
+      <a class="hero-scroll" href="#definition">Scroll<i></i></a>
+      <div class="hero-clock">
+        <small>Right now on campus · <b id="live-time">--:--</b></small>
+        <strong id="craving-line">Snack o’clock!</strong>
+        <a href="shops.html" data-magnetic>Find something good ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSSING MARQUEES -->
+  <section class="bands" aria-label="What’s cooking">
+    <div class="band band-sun" data-marquee="1">
+      <div class="band-track"><span>Burgers</span><b data-food="item:burger"></b><span>Pizza</span><b data-food="item:pizza"></b><span>Rolls</span><b data-food="item:roll"></b><span>Maggi</span><b data-food="item:noodles"></b><span>Fries</span><b data-food="item:fries"></b><span>Coolers</span><b data-food="item:drink"></b></div>
+    </div>
+    <div class="band band-candy" data-marquee="-1">
+      <div class="band-track"><span>One more bite</span><b>✱</b><span>A little of everything</span><b>✱</b><span>A lot of good</span><b>✱</b><span>Order ahead</span><b>✱</b><span>Skip the queue</span><b>✱</b></div>
+    </div>
+  </section>
+
+  <!-- DEFINITION -->
+  <section class="definition" id="definition">
+    <figure class="def-photo def-photo-a" data-speed="-0.15"><img src="assets/web/2764e.webp" alt="A bowl of red-sauce pasta from a campus kitchen" loading="lazy"></figure>
+    <article class="def-card">
+      <h2 class="def-word">Campus EATS</h2>
+      <p class="def-meta"><i>[kam·pəs ēts]</i> noun, plural · <b>almost a lifestyle</b></p>
+      <p class="def-text" data-words>From the student, <mark>“what should we even eat?”</mark> 1. Every campus kitchen on one screen, from midnight Maggi to a proper paneer roll. 2. The art of ordering <mark>before</mark> you reach the counter, then strolling past the queue like you own the place. 3. A group chat that starts with <mark>“just one snack”</mark> and ends with three shops and a feast for six.</p>
+      <p class="def-syn"><b>Synonyms:</b> canteen run, hostel-gate feast, exam-week fuel</p>
+      <p class="def-script" aria-hidden="true">one more bite</p>
+    </article>
+    <figure class="def-photo def-photo-b" data-speed="0.2"><img src="assets/web/138f3.webp" alt="Burger Singh storefront on campus at night" loading="lazy"></figure>
+  </section>
+
+  <svg class="wave wave-to-lagoon" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q 60 0 120 40 T 240 40 T 360 40 T 480 40 T 600 40 T 720 40 T 840 40 T 960 40 T 1080 40 T 1200 40 T 1320 40 T 1440 40 V80 H0Z"/></svg>
+
+  <!-- PINNED BUILD -->
+  <section class="build" id="build" data-dark>
+    <div class="build-inner">
+      <div class="build-head">
+        <p class="kicker">Burgers · Rolls · Bowls</p>
+        <h2 class="build-title">A burger,<br>it’s simple.</h2>
+        <p class="build-title build-title-alt" aria-hidden="true">A Maggi?<br>Even simpler.</p>
+      </div>
+      <ol class="build-steps">
+        <li><span>01</span><div><b>The bun</b><small>Soft, toasted, ready.</small></div></li>
+        <li><span>02</span><div><b>The patty</b><small>Veg or not, your call.</small></div></li>
+        <li><span>03</span><div><b>The cheese</b><small>Melted. Slowly.</small></div></li>
+        <li><span>04</span><div><b>The crunch</b><small>Tomato, lettuce, the lot.</small></div></li>
+        <li><span>05</span><div><b>The top!</b><small>Sesame, obviously.</small></div></li>
+      </ol>
+      <div class="build-stage">
+        <div class="build-dish build-burger">
+          <span class="b-layer b-top" data-food="part:bunTop"></span>
+          <span class="b-layer b-lettuce" data-food="part:lettuce"></span>
+          <span class="b-layer b-tomato" data-food="part:tomato"></span>
+          <span class="b-layer b-onion" data-food="part:onion"></span>
+          <span class="b-layer b-cheese" data-food="part:cheese"></span>
+          <span class="b-layer b-patty" data-food="part:patty"></span>
+          <span class="b-layer b-bottom" data-food="part:bunBottom"></span>
+        </div>
+        <div class="build-dish build-maggi" data-food="dish:maggi"></div>
+        <div class="build-board" data-food="part:board"></div>
+      </div>
+      <div class="build-stamp stamp-burger"><strong>The Classic</strong><small>On a bun, built your way.<br>Find it at Burger Singh.</small></div>
+      <div class="build-stamp stamp-maggi"><strong>Midnight Maggi</strong><small>In a bowl, with a fork.<br>Peak exam-week fuel.</small></div>
+      <div class="build-progress"><i></i></div>
+    </div>
+  </section>
+
+  <!-- HORIZONTAL SHOPS -->
+  <section class="shops" id="shops">
+    <div class="shops-pin">
+      <div class="shops-head">
+        <p class="kicker">Six spots on campus</p>
+        <h2>So many<br>cravings.</h2>
+      </div>
+      <div class="shops-ghost" aria-hidden="true">HUNGRY? HUNGRY? HUNGRY?</div>
+      <div class="shops-track" id="shop-track"></div>
+    </div>
+  </section>
+
+  <!-- NAME WALL -->
+  <section class="names" data-dark>
+    <div class="names-head">
+      <p class="kicker">No paper menus here</p>
+      <h2>Hundreds of dishes,<br>one piece of advice:</h2>
+    </div>
+    <div class="name-rows" id="name-rows" aria-label="Dishes on campus"></div>
+    <div class="names-cta">
+      <strong class="shout" data-chars>Just order it!</strong>
+      <p>The full menu? It’s waiting in the app.</p>
+    </div>
+  </section>
+
+  <svg class="wave wave-to-cream" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q 60 0 120 40 T 240 40 T 360 40 T 480 40 T 600 40 T 720 40 T 840 40 T 960 40 T 1080 40 T 1200 40 T 1320 40 T 1440 40 V80 H0Z"/></svg>
+
+  <!-- SCRIPT + STEPS -->
+  <section class="how" id="how-it-works">
+    <p class="kicker center">Synonym: snack squad</p>
+    <p class="big-script" aria-label="A little of everything, a lot of good"><span>a little of everything,</span><span>a lot of good</span></p>
+    <div class="polaroids">
+      <figure class="polaroid" data-cursor="Drag"><img src="assets/web/c2e0c.webp" alt="Students outside Greenox at night" loading="lazy"><figcaption>01 · Pick a spot</figcaption></figure>
+      <figure class="polaroid" data-cursor="Drag"><img src="assets/web/16761.webp" alt="Maggi Hotspot counter on campus" loading="lazy"><figcaption>02 · Build your order</figcaption></figure>
+      <figure class="polaroid" data-cursor="Drag"><img src="assets/web/0ede3.webp" alt="Campus tuck shop shelves" loading="lazy"><figcaption>03 · Grab it &amp; go</figcaption></figure>
+    </div>
+    <ol class="how-steps">
+      <li><span>1</span><div><b>Choose your spot</b><p>Six campus kitchens, every menu searchable in one place.</p></div></li>
+      <li><span>2</span><div><b>Make it yours</b><p>Pick sizes, extras and quantities. Prices are checked by the server.</p></div></li>
+      <li><span>3</span><div><b>Collect &amp; share</b><p>Shop counter or hostel gate. Follow your order from the Orders page.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- PICKUP -->
+  <section class="pickup">
+    <div class="pickup-copy">
+      <h2 class="pickup-title">Pickup</h2>
+      <div class="pickup-row"><small>Option one</small><p>Shop counter <i class="arrow"></i> grab &amp; go</p></div>
+      <div class="pickup-row"><small>Option two</small><p>Hostel gate <i class="arrow"></i> meet you there</p></div>
+      <p class="pickup-script">the taste of campus</p>
+    </div>
+    <div class="pickup-disc" aria-hidden="true">
+      <svg class="disc-text" viewBox="0 0 200 200"><defs><path id="disc-circle" d="M100 100m-80 0a80 80 0 1 1 160 0a80 80 0 1 1-160 0"/></defs><text><textPath href="#disc-circle">ORDER AHEAD ✱ SKIP THE QUEUE ✱ ORDER AHEAD ✱ SKIP THE QUEUE ✱ </textPath></text></svg>
+      <span class="disc-item disc-drink" data-food="item:drink"></span>
+      <span class="disc-item disc-fries" data-food="item:fries"></span>
+    </div>
+  </section>
+
+  <svg class="wave wave-to-lagoon wave-on-sun" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q 60 0 120 40 T 240 40 T 360 40 T 480 40 T 600 40 T 720 40 T 840 40 T 960 40 T 1080 40 T 1200 40 T 1320 40 T 1440 40 V80 H0Z"/></svg>
+
+  <!-- LOCATION -->
+  <section class="location" data-dark>
+    <div class="loc-copy">
+      <p class="kicker">Campus EATS is at</p>
+      <h2>BML Munjal<br>University</h2>
+      <p class="loc-address">Sidhrawali, Gurugram, Haryana</p>
+      <ul class="loc-features">
+        <li>✱ Six campus kitchens</li>
+        <li>✱ Veg &amp; non-veg menus</li>
+        <li>✱ Server-checked prices &amp; coupons</li>
+        <li>✱ Counter or hostel-gate pickup</li>
+      </ul>
+      <a class="pill-cta pill-sun" href="shops.html" data-magnetic>Start your order <span>↗</span></a>
+    </div>
+    <figure class="loc-photo"><img src="assets/web/92209.webp" alt="BML Munjal University campus building" loading="lazy"></figure>
+  </section>
 </main>
+
+<footer class="site-footer" data-dark>
+  <div class="food-pit" aria-label="Interactive food pile. Click or drag the food." data-cursor="Poke"></div>
+  <a class="foot-card" href="shops.html" data-magnetic=".15">
+    <small>Campus EATS: the shops, the menus, the cart, the tracking…</small>
+    <strong>Browse all shops <span>↗</span></strong>
+  </a>
+  <p class="foot-translate">Translation: to the canteen, gang!</p>
+  <p class="foot-giant" aria-label="Let’s eat!">LET’S EAT!</p>
+  <div class="foot-row">
+    <div class="foot-brand"><span class="badge-core">CE</span><b>Campus EATS</b></div>
+    <div class="footer-links">
+      <p>Shops</p>
+      <p>Cart</p>
+      <p>Orders</p>
+      <p>Profile</p>
+    </div>
+    <small>© Campus EATS · Student food-ordering project · BMU</small>
+  </div>
+  <p class="foot-psst">Psst… poke the food.</p>
+</footer>
 </body>
 </html>
