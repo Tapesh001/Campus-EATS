@@ -4,7 +4,7 @@
 
 An English-language campus food-ordering application with student accounts, searchable shop menus, a cart, checkout, order tracking and administration.
 
-> **Redesign in progress.** This repository contains the isolated working foundation for the new Campus EATS website. The requested visual reference is [Bar Topas](https://bar-topas.ch/). The reference-based redesign has not yet been implemented; inspection is blocked by the browser's saved access policy.
+> **Animated redesign.** The homepage follows the playful, scroll-driven style of [Bar Topas](https://bar-topas.ch/): a striped loader, giant hero letters with floating food, crossing marquees, a pinned burger that builds itself as you scroll, a horizontal shop gallery, a dish wall, draggable polaroids and a footer food pile you can throw around. Every page shares smooth scrolling, colour-stripe page transitions and a custom cursor. Motion respects the system "reduce motion" setting.
 
 ## Run locally
 
@@ -26,7 +26,7 @@ Open **http://localhost:8877**. Keep the terminal running. This is a local devel
 | `01-designs/` | Standalone HTML and CSS previews, without browser JavaScript |
 | `02-frontend/pages/` | Linked application pages |
 | `02-frontend/styles/` | Shared and page-specific styles |
-| `02-frontend/scripts/` | Forms, menus, cart, checkout and API requests |
+| `02-frontend/scripts/` | Forms, menus, cart, checkout and API requests; `motion.js` (shared animation layer), `home.js` (homepage choreography), `food-art.js` (SVG food illustrations), `vendor/` (GSAP, ScrollTrigger, SplitText, Lenis) |
 | `02-frontend/assets/` | Images and illustrations |
 | `03-backend/` | Express APIs, authentication, persistence and tests |
 | `04-data/` | Public starting menu catalog |
