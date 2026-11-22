@@ -93,7 +93,10 @@ if (page === "login") {
     } catch(e){status.textContent=e.message;} finally {submit.disabled=false;}
   };
 }
-if (page === "home") control(document.querySelector(named("Button")),null,pages.Shops);
+if (page === "home") {
+  const shopButton = document.querySelector(named("Button"));
+  if (shopButton) control(shopButton,null,pages.Shops);
+}
 if (page === "shops") {
   for (const card of all(named("Detailed shop card"))) {
     const shop = title(card.querySelector(named("Shop heading")+" > p"));
