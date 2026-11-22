@@ -81,35 +81,20 @@ async function enhanceCampus() {
     const hero = document.querySelector('.hero-copy');
     const search = element('form', '', 'campus-search');
     search.action = 'shops.html';
-    const input = element('input');
-    input.type = 'search'; input.name = 'q'; input.placeholder = 'What are you craving today?';
-    input.setAttribute('aria-label', 'Search campus food');
-    search.append(input, element('button', 'Search'));
-    hero.append(search, link('View today’s offers', 'offers.html'));
-    const content = document.querySelector('.home-content');
-    const categories = section('What are you craving?');
-    const chips = element('div', '', 'category-chips');
-    for (const name of ['Pizza', 'Burgers', 'Chinese', 'Rolls', 'North Indian', 'Beverages', 'Snacks', 'Desserts']) chips.append(link(name, 'shops.html?q=' + encodeURIComponent(name)));
-    categories.append(chips);
-    const featured = section('Explore campus restaurants');
-    const grid = element('div', '', 'feature-grid');
-    catalog.filter(menu => menu.items.length).forEach(menu => grid.append(restaurantCard(menu)));
-    featured.append(grid);
-    const budget = section('Under ₹99');
-    const foodGrid = element('div', '', 'feature-grid');
-    for (const menu of catalog) {
-      const item = menu.items.find(item => item.price != null && item.price < 99 && item.stock !== 0);
-      if (!item) continue;
-      const card = element('article', '', 'feature-card');
-      card.append(element('h3', item.dish), element('p', menu.shop + ' · ₹' + item.price), link('Choose options →', 'menu.html?shop=' + encodeURIComponent(menu.shop) + '&q=' + encodeURIComponent(item.dish)));
-      foodGrid.append(card);
+    const input = element('input'); input.type = 'search'; input.name = 'q'; input.placeholder = 'Search dishes and shops'; input.setAttribute('aria-label', 'Search campus food');
+    search.append(input, element('button', 'Search')); hero.append(search);
+    const grid = document.querySelector('#home-shop-grid');
+    if (grid) {
+      grid.replaceChildren();
+      const brands = { 'Kathi Junction':'d2629.png','Greenox':'c2e0c.png', "Domino's":'a9c50.png','Burger Singh':'138f3.png','Maggie Point':'16761.png','Tuck Shop':'0ede3.png' };
+      const cuisines = { 'Kathi Junction':'Rolls · North Indian','Greenox':'Salads · Wraps · Juices', "Domino's":'Pizza · Sides · Desserts','Burger Singh':'Burgers · Fries · Momos','Maggie Point':'Maggi · Coffee · Coolers','Tuck Shop':'Campus essentials' };
+      for (const menu of catalog) {
+        const card=element('article','','home-shop-card'); const brand=element('div','','home-shop-brand');
+        if(brands[menu.shop]) { const img=element('img');img.src='assets/'+brands[menu.shop];img.alt=menu.shop+' logo';img.loading='lazy';brand.append(img); }
+        card.append(brand,element('h3',menu.shop),element('p',cuisines[menu.shop]||'Campus favourites'));
+        const foot=element('div','','shop-foot');foot.append(element('span',menu.items.length ? menu.items.length+' menu choices' : 'Menu coming soon'),link('Explore menu','menu.html?shop='+encodeURIComponent(menu.shop)));card.append(foot,heart('shop:'+menu.shop));grid.append(card);
+      }
     }
-    budget.append(foodGrid);
-    const dashboard = content.querySelector('.dashboard-sections');
-    content.insertBefore(categories, dashboard); content.insertBefore(featured, dashboard); content.insertBefore(budget, dashboard);
-    const proposed = section('More ways to order together');
-    proposed.append(element('p', 'Group orders and late-night ordering are proposed campus features. Shop hours will appear when confirmed.'));
-    content.append(proposed);
   }
   if (page === 'shops') {
     const content = document.querySelector('.shops-content');
